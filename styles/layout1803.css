@@ -26,6 +26,7 @@ body {
 .material-symbols-outlined {
     font-size: 40px;
     position: relative;
+    text-decoration: none;
     top: -10px;
     border-left: 3px solid white;
     padding-left: 5px;
