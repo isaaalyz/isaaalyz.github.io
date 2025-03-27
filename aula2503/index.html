@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literature Memory Game</title>
+    <link rel="stylesheet" href="../styles/layout2503.css"> 
+</head>
+
+<body>
+    <div id="margem">
+        <h1 class="shadow">LITERATURE MEMORY GAME</h1>
+        <div id="photo"></div>
+        <div id="photo2"></div>
+    </div>
+
+    <div id="cards" onmouseover="mostrarNome('nomeAcotar')" onmouseout="esconderNome('nomeAcotar')">
+        <h1 id="nomeAcotar" class="texto-hover shadow02">Acotar</h1>
+        <a href="acotar.html" target="_blank" class="cards"></a>
+    </div>
+
+    <div id="cards2" onmouseover="mostrarNome('nomePrincipe')" onmouseout="esconderNome('nomePrincipe')">
+        <h1 id="nomePrincipe" class="texto-hover shadow01">The Cruel Prince</h1>
+        <a href="principeC.html" target="_blank" class="cards2"></a>
+    </div>
+
+    <div id="cards3" onmouseover="mostrarNome('nomeQuartaAsa')" onmouseout="esconderNome('nomeQuartaAsa')">
+        <h1 id="nomeQuartaAsa" class="texto-hover shadow03">Fourth Wing</h1>
+        <a href="quartaAsa.html" target="_blank" class="cards3"></a>
+    </div>
+
+    <script>
+        function mostrarNome(id) {
+            document.getElementById(id).style.display = "block";
+        }
+
+        function esconderNome(id) {
+            document.getElementById(id).style.display = "none";
+        }
+    </script>
+
+    <div id="margem2">
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,241 @@
+#margem { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    width: inherit;
+    height: 120px;
+    background-color: rgb(177, 145, 4);
+    background-image: linear-gradient(rgb(212, 168, 21), rgb(253, 255, 129));
+}
+
+#margem2 { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; 
+    bottom: 0px; 
+    width: 99%; 
+    height: 30px;
+    background-color: rgb(177, 145, 4);
+    background-image: linear-gradient( rgb(253, 255, 129), rgb(212, 168, 21));
+}
+
+
+
+
+h1.shadow {
+    text-shadow: 2px 2px white;
+    color: rgb(0, 0, 0);
+}
+
+
+#photo, #photo2 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: url(https://th.bing.com/th/id/OIP.ue9iQ0eFseLRdnlAEWnJPAHaE7?w=284&h=189&c=7&r=0&o=5&dpr=1.3&pid=1.7) no-repeat center;
+    background-size: cover;
+}
+
+#photo { left: 20px; }
+#photo2 { right: 20px; }
+
+#cards, #cards2, #cards3 {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    width: 250px;
+    height: 250px;
+    border-radius: 10%;
+    background-position: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cards:hover, #cards2:hover, #cards3:hover {
+    opacity: 0.7;
+    background-size: 105%; 
+}
+
+.texto-hover {
+    display: none;
+    color: rgb(177, 145, 4);
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 2px 2px black;
+    position: absolute;
+    top: -70px; 
+    text-align: center;
+    width: 100%;
+}
+
+
+h1.shadow01 { 
+    color: white; 
+    text-shadow: 
+        1px 1px 2px black, 0 0 25px  rgb(251, 255, 0), 0 0 5px rgb(50, 119, 23);      
+}
+
+h1.shadow02 { 
+    color: white; 
+    text-shadow: 
+        1px 1px 2px black, 0 0 25px  rgb(0, 119, 255), 0 0 5px rgb(17, 1, 107);      
+}
+
+h1.shadow03 { 
+    color: white; 
+    text-shadow: 
+        1px 1px 2px black, 0 0 25px  rgb(174, 0, 255), 0 0 5px rgb(85, 84, 85); 
+}
+
+#cards {
+    transform: translate(-170%, -50%);
+    background: url(https://pbs.twimg.com/media/Gm9lKPrXoAA0J9f?format=jpg&name=360x360) no-repeat center;
+    background-size: cover;
+    box-shadow: 10px 10px 7px  rgb(17, 1, 107);
+}
+
+#cards2 {
+    transform: translate(-50%, -50%);
+    background: url(https://pbs.twimg.com/media/Gm9rK6xXoAAgPc6?format=jpg&name=medium) no-repeat center;
+    background-size: cover;
+    box-shadow: 10px 10px 7px rgb(50, 119, 23);
+}
+
+#cards3 {
+    transform: translate(70%, -50%);
+    background: url(https://pbs.twimg.com/media/Gm9rK6yWsAAKP7-?format=jpg&name=360x360) no-repeat center;
+    background-size: cover;
+    box-shadow: 10px 10px 7px rgb(95, 8, 136);
+}
+
+/* Links dentro dos cards */
+a {
+    text-decoration: none;
+    position: absolute;  
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
+#margemAcotar { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    width: inherit;
+    height: 120px;
+    background-color: rgb(17, 1, 107);
+    background-image: linear-gradient(rgb(17, 01, 107), rgb(148, 129, 255));
+}
+
+#margemAcotar2 { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; 
+    bottom: 0px; 
+    width: 99%; 
+    height: 30px;
+    background-color: rgb(17, 1, 107);
+    background-image: linear-gradient( rgb(148, 129, 255), rgb(17, 1, 107));
+}
+
+#photoAcotar, #photoAcotar2 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: url(https://pbs.twimg.com/media/Gm9lKPrXoAA0J9f?format=jpg&name=360x360) no-repeat center;
+    background-size: cover;
+}
+
+#photoAcotar { left: 20px; }
+#photoAcotar2 { right: 20px; }
+
+#margemPrincipe { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    width: inherit;
+    height: 120px;
+    background-color: rgb(50, 119, 23);
+    background-image: linear-gradient(rgb(50, 119, 23),rgb(116, 228, 72));
+}
+
+#margemPrincipe2 { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; 
+    bottom: 0px; 
+    width: 99%; 
+    height: 30px;
+    background-color: rgb(50, 119, 23);
+    background-image: linear-gradient(rgb(116, 228, 72), rgb(50, 119, 23));
+}
+
+#photoPrincipe, #photoPrincipe2 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: url(https://pbs.twimg.com/media/Gm9rK6xXoAAgPc6?format=jpg&name=medium) no-repeat center;
+    background-size: cover;
+}
+
+#photoPrincipe { left: 20px; }
+#photoPrincipe2 { right: 20px; }
+
+#margemQuarta{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    width: inherit;
+    height: 120px;
+    background-color: rgb(95, 8, 136);
+    background-image: linear-gradient(rgb(95, 8, 136),rgb(194, 106, 235));
+}
+
+#margemQuarta2 { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; 
+    bottom: 0px; 
+    width: 99%; 
+    height: 30px;
+    background-color: rgb(95, 8, 136);
+    background-image: linear-gradient(rgb(194, 106, 235), rgb(95, 8, 136));
+}
+
+#photoQuarta, #photoQuarta2 {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: url(https://pbs.twimg.com/media/Gm9rK6yWsAAKP7-?format=jpg&name=360x360) no-repeat center;
+    background-size: cover;
+}
+
+#photoQuarta { left: 20px; }
+#photoQuarta2 { right: 20px; }
+
+
+
+
+
+
+

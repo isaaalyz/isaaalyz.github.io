@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literature Memory Game</title>
+    <link rel="stylesheet" href="../styles/layout2503.css"> 
+    <style>
+        #formatoCard {
+            width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .card {
+            width: 200px;
+            height: 180px; 
+            background-size: cover; 
+            background-position: center; 
+            border-radius: 10%;
+            cursor: pointer;
+            display: inline-block; 
+            margin-bottom: 20px; 
+            margin-right: 20px; 
+            position: relative;
+        }
+
+        .mascarado {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color:  rgb(50, 119, 23); 
+            z-index: 1; 
+            border-radius: 10%;
+        }  
+        
+        .mascarado:hover {
+           background-color:  rgb(75, 160, 42); 
+        }
+
+        #card1, #card2, #card3, #card4, #card5, #card6{
+            box-shadow: 10px 10px 7px rgb(50, 119, 23);
+        }
+        #card1 {
+            background: url(https://pbs.twimg.com/media/GnAzL1yWwAAqdJZ?format=jpg&name=large) no-repeat center;
+            background-size: cover;
+        }
+
+        #card2 {
+            background: url(https://th.bing.com/th/id/OIP.-wPo7dWK5dvwJLtnVdNI3QHaFS?rs=1&pid=ImgDetMain) no-repeat center;
+            background-size: cover;
+        }
+
+        #card3 {
+            background: url(https://th.bing.com/th/id/OIP.N-8xAiowlixugG5WJborfwHaJD?rs=1&pid=ImgDetMain) no-repeat center;
+            background-size: cover;
+        }
+
+        #card4 {
+            background: url(https://th.bing.com/th/id/OIP.-wPo7dWK5dvwJLtnVdNI3QHaFS?rs=1&pid=ImgDetMain) no-repeat center;
+            background-size: cover;
+        }
+
+        #card5 {
+            background: url(https://pbs.twimg.com/media/GnAzL1yWwAAqdJZ?format=jpg&name=large) no-repeat center;
+            background-size: cover;
+        }
+
+        #card6 {
+            background: url(https://th.bing.com/th/id/OIP.N-8xAiowlixugG5WJborfwHaJD?rs=1&pid=ImgDetMain) no-repeat center;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="margemPrincipe">
+        <h1 class="shadow">THE CRUEL PRINCE MEMORY GAME</h1>
+        <a href="index.html" target="_blank" class="margem"></a>
+        <div id="photoPrincipe"></div>
+        <div id="photoPrincipe2"></div>
+    </div>
+
+   
+    <div id="formatoCard">
+        <div class="card" id="card1">
+            <div class="mascarado" onclick="mostrarCard('card1')"></div>
+            <h1 id="nomePrincipe" class="texto-hover shadow01">O Príncipe Cruel</h1>
+        </div>
+        <div class="card" id="card2">
+            <div class="mascarado" onclick="mostrarCard('card2')"></div>
+        </div>
+        <div class="card" id="card3">
+            <div class="mascarado" onclick="mostrarCard('card3')"></div>
+        </div>
+
+
+        <div class="card" id="card4">
+            <div class="mascarado" onclick="mostrarCard('card4')"></div>
+        </div>
+        <div class="card" id="card5">
+            <div class="mascarado" onclick="mostrarCard('card5')"></div>
+        </div>
+        <div class="card" id="card6">
+            <div class="mascarado" onclick="mostrarCard('card6')"></div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarCard(cardId) {
+            var mascarado = document.querySelector('#' + cardId + ' .mascarado');
+            mascarado.style.display = "none"; 
+        }
+    </script>
+
+    <div id="margemPrincipe2">
+    </div>
+</body>
+</html>
