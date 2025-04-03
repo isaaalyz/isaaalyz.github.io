@@ -66,9 +66,33 @@
             color: black;
         }
 
+        .fundo-rosa, .fundo-imagem {
+            position: fixed;
+            top: 0;
+            width: 50%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .fundo-rosa {
+            left: 0;
+            background-image: url(https://pbs.twimg.com/media/GneM3pVWsAA4dvO?format=jpg&name=large);
+        }
+
+        .fundo-imagem {
+            right: 0;
+            background-image: url(https://pbs.twimg.com/media/GneM3pRWcAAmf47?format=jpg&name=large);
+        }
+
+
         @media (max-width: 700px) {
             .titulo {
-                text-shadow: -2px -2px 0 rgb(235, 234, 234);
+                text-shadow: -2px -2px 0 rgb(235, 234, 234),  
+                2px -2px 0  rgb(235, 234, 234),  
+                -2px  2px 0  rgb(235, 234, 234),  
+                2px  2px 0  rgb(235, 234, 234);
                 font-size: 40px; 
                 left: 50%;
             }
@@ -90,7 +114,9 @@
 <body>
 
     <h1 class="titulo"><a href="index.html" target="_blank">Projetos</a></h1>
-
+    <div class="fundo-rosa"></div>
+    <div class="fundo-imagem"></div>
+    
     <div class="caixaT">
        <ul>
             <li><a href="aula1103/index.html" target="_blank"><b>Atividade 11/03/2025:</b> Currículo</a></li>
