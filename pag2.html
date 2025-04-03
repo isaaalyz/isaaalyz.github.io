@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Pessoal</title>
     
-    
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 
     <style>
@@ -13,38 +12,36 @@
             background-image: url(https://pbs.twimg.com/media/GnDRn62XkAEl_y3?format=jpg&name=medium);
             background-size: cover;
             background-position: center;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Didot', serif;
             margin: 0;
             padding: 0;
             background-color: #f7c8d3;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
             text-align: center;
         }
 
-        h1 {
+        .titulo {
             font-family: 'Dancing Script', cursive;
             font-size: 50px;
             position: absolute;
-            left: 270px;
+            left: 25%;
             top: 50px;
+            transform: translateX(-50%);
             margin: 0;
             color: black;
         }
 
-        h1 a {
+        .titulo a {
             text-decoration: none; 
-            color: black; 
+            color: black;
         }
 
-        .text-box {
+        .caixaT {
             background-color: rgba(247, 200, 211, 0.9); 
             position: absolute;
-            left: 30px;
+            left: 25%;
             top: 170px;
+            transform: translateX(-50%);
             padding: 20px;
             width: 60%; 
             max-width: 600px; 
@@ -53,33 +50,56 @@
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); 
         }
 
-        .text-box ul {
+        .caixaT ul {
             list-style-type: disc; 
             padding-left: 20px; 
         }
 
-        .text-box li {
+        .caixaT li {
             font-size: 20px;
             color: black;
             margin-bottom: 10px; 
         }
 
-        .text-box a {
+        .caixaT a {
             text-decoration: none; 
             color: black;
         }
 
+        @media (max-width: 700px) {
+            .titulo {
+                text-shadow: -2px -2px 0 rgb(235, 234, 234),  
+                2px -2px 0  rgb(235, 234, 234),  
+                -2px  2px 0  rgb(235, 234, 234),  
+                2px  2px 0  rgb(235, 234, 234);
+                font-size: 40px; 
+                left: 50%;
+            }
+
+            .caixaT {
+                width: 80%; 
+                left: 50%;
+                transform: translateX(-50%);
+                top: 150px;
+                padding: 15px;
+            }
+
+            .caixaT li {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <h1><a href="index.html" target="_blank">Projetos</a></h1>
+    <h1 class="titulo"><a href="index.html" target="_blank">Projetos</a></h1>
 
-    <div class="text-box">
+    <div class="caixaT">
        <ul>
-            <li><a href="aula1103/index.html" target="_blank">Atividade 11/03/2025: Currículo</a></li>
-            <li><a href="aula1803/index.html" target="_blank">Atividade 18/03/2025: Portal Notícia</a></li>
-            <li><a href="aula2503/index.html" target="_blank">Atividade 25/03/2025: Memory Game</a></li>
+            <li><a href="aula1103/index.html" target="_blank"><b>Atividade 11/03/2025:</b> Currículo</a></li>
+            <li><a href="aula1803/index.html" target="_blank"><b>Atividade 18/03/2025:</b> Portal Notícia</a></li>
+            <li><a href="aula2503/index.html" target="_blank"><b>Atividade 25/03/2025:</b> Memory Game</a></li>
+            <li><a href="index.html" target="_blank"><b>Atividade 01/04/2025:</b> Página Pessoal</a></li>
        </ul> 
     </div>
 

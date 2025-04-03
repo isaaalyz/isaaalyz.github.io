@@ -12,35 +12,40 @@
             background-image: url(https://pbs.twimg.com/media/GnDRn62XkAEl_y3?format=jpg&name=medium);
             background-size: cover;
             background-position: center;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Didot', serif;
             margin: 0;
             padding: 0;
             background-color: #f7c8d3;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
             text-align: center;
         }
 
-        h1 {
+        .foto {
+            width: 95px;  
+            height: 99px; 
+            border-radius: 50%; 
+            border: 2px solid black; 
+            position: absolute;
+            left: 10%;
+            top: 30px;
+        }
+
+        .titulo {
             font-family: 'Dancing Script', cursive;
             font-size: 50px;
             position: absolute;
-            left: 220px;
+            left: 20%;
             top: 50px;
             margin: 0;
             color: black;
         }
 
-        
-        h1 a {
+        .titulo a {
             text-decoration: none; 
             color: black;
         }
 
-        .text-box {
+        .caixaT {
             background-color: rgba(247, 200, 211, 0.9); 
             position: absolute;
             left: 30px;
@@ -53,26 +58,55 @@
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); 
         }
 
-        .text-box p {
+        .caixaT p {
             font-size: 20px;
             color: black;
             line-height: 1.6;
         }
 
+        @media (max-width: 700px) {
+            .foto {
+                width: 80px;  
+                height: 80px;
+                left: 13%;
+                top: 30px;
+            }
+
+            .titulo {
+                text-shadow: -2px -2px 0 rgb(235, 234, 234),  
+                2px -2px 0  rgb(235, 234, 234),  
+                -2px  2px 0  rgb(235, 234, 234),  
+                2px  2px 0  rgb(235, 234, 234);
+                font-size: 30px;
+                left: 40%;
+                top: 50px;
+            }
+
+            .caixaT {
+                width: 80%; 
+                left: 50%;
+                transform: translateX(-50%);
+                top: 150px;
+                padding: 15px;
+            }
+
+            .caixaT p {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <h1><a href="index.html" target="_blank">Sobre Mim</a></h1>
+    <img src="https://pbs.twimg.com/media/GnhJnKOXAAAeEja?format=jpg&name=large" class="foto">
+    <h1 class="titulo"><a href="index.html" target="_blank">Sobre Mim</a></h1>
 
-    <div class="text-box">
+    <div class="caixaT">
         <p>
-            Meu nome é Isadora Lyz da Cunha de Macedo, tenho 17 anos e faço aniversário no dia 14 de abril de 2007. 
-            Atualmente, faço o curso de TI no IFPR - Campus Paranaguá. 
-            Adoro ler, ir à praia e praticar esportes, como corrida, natação e ciclismo. 
-            Tenho dois cachorros: Dylan e Ice.
-            Tenho o sonho de cursar Bioinformatica no futuro. Sou apaixonada por doces, mas confesso que não gosto de me alimentar de forma saudável, 
-            embora, às vezes, faça um esforço para manter uma alimentação balanceada.
+            Meu nome é Isadora Lyz da Cunha de Macedo, tenho 17 anos e nasci em 14 de abril de 2007. Atualmente, estou cursando Técnico em Informática no IFPR - Campus Paranaguá.
+            Sou apaixonada por livros, especialmente os do gênero romantasia. Algumas das minhas sagas favoritas são O Príncipe Cruel, Quarta Asa e ACOTAR. Além de ler, adoro ouvir música em qualquer momento, ir à praia e praticar esportes, como corrida, natação e ciclismo.
+            Tenho dois cachorros incríveis, o Dylan e o Ice, que são minha companhia diária.
+            No futuro, sonho em cursar Bioinformática, unindo minha paixão pela tecnologia e pela ciência. Também sou completamente apaixonada por doces, mas confesso que nem sempre sigo uma alimentação saudável, embora tente manter o equilíbrio de vez em quando!
         </p>
     </div>
 

@@ -46,3 +46,39 @@ body {
     font-family: "Trirong", serif; 
     font-size: 20px;
 }
+
+@media (max-width: 700px) {
+    body {
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .margem1 {
+        display: block;
+        text-align: center;
+    }
+
+    .menu-item {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .coresnasletras h1 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .coresnasletras ul {
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .coresnasletras li {
+        display: inline-block;
+        margin: 5px;
+        font-size: 18px;
+    }
+}

@@ -1,29 +1,25 @@
 #margem { 
-    display: flex;
+    display: inline-block;
     align-items: center;
-    justify-content: center;
     position: relative;
     text-align: center;
-    width: inherit;
+    width: 1340px;
     height: 120px;
     background-color: rgb(177, 145, 4);
     background-image: linear-gradient(rgb(212, 168, 21), rgb(253, 255, 129));
 }
 
 #margem2 { 
-    display: flex;
+    display: inline-block;
     align-items: center;
-    justify-content: center;
     position: absolute; 
     bottom: 0px; 
-    width: 99%; 
+    left: 8px;
+    width: 1340px; 
     height: 30px;
     background-color: rgb(177, 145, 4);
     background-image: linear-gradient( rgb(253, 255, 129), rgb(212, 168, 21));
 }
-
-
-
 
 h1.shadow {
     text-shadow: 2px 2px white;
@@ -35,6 +31,7 @@ h1.shadow {
     position: absolute;
     width: 100px;
     height: 100px;
+    top: 10px;
     border-radius: 50%;
     background: url(https://th.bing.com/th/id/OIP.ue9iQ0eFseLRdnlAEWnJPAHaE7?w=284&h=189&c=7&r=0&o=5&dpr=1.3&pid=1.7) no-repeat center;
     background-size: cover;
@@ -52,8 +49,7 @@ h1.shadow {
     border-radius: 10%;
     background-position: center;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
+    display: inline-block;
     align-items: center;
 }
 
@@ -114,7 +110,7 @@ h1.shadow03 {
     box-shadow: 10px 10px 7px rgb(95, 8, 136);
 }
 
-/* Links dentro dos cards */
+
 a {
     text-decoration: none;
     position: absolute;  
@@ -126,21 +122,19 @@ a {
 }
 
 #margemAcotar { 
-    display: flex;
+    display: inline-block;
     align-items: center;
-    justify-content: center;
     position: relative;
     text-align: center;
-    width: inherit;
+    width: 1340px;
     height: 120px;
     background-color: rgb(17, 1, 107);
     background-image: linear-gradient(rgb(17, 01, 107), rgb(148, 129, 255));
 }
 
 #margemAcotar2 { 
-    display: flex;
+    display: inline-block;
     align-items: center;
-    justify-content: center;
     position: absolute; 
     bottom: 0px; 
     width: 99%; 
@@ -153,6 +147,7 @@ a {
     position: absolute;
     width: 100px;
     height: 100px;
+    top: 10px;
     border-radius: 50%;
     background: url(https://pbs.twimg.com/media/Gm9lKPrXoAA0J9f?format=jpg&name=360x360) no-repeat center;
     background-size: cover;
@@ -162,21 +157,19 @@ a {
 #photoAcotar2 { right: 20px; }
 
 #margemPrincipe { 
-    display: flex;
+    display: inline-block;
     align-items: center;
-    justify-content: center;
     position: relative;
     text-align: center;
-    width: inherit;
+    width: 1340px;
     height: 120px;
     background-color: rgb(50, 119, 23);
     background-image: linear-gradient(rgb(50, 119, 23),rgb(116, 228, 72));
 }
 
 #margemPrincipe2 { 
-    display: flex;
+    display: inline-block;
     align-items: center;
-    justify-content: center;
     position: absolute; 
     bottom: 0px; 
     width: 99%; 
@@ -189,6 +182,7 @@ a {
     position: absolute;
     width: 100px;
     height: 100px;
+    top: 10px;
     border-radius: 50%;
     background: url(https://pbs.twimg.com/media/Gm9rK6xXoAAgPc6?format=jpg&name=medium) no-repeat center;
     background-size: cover;
@@ -198,21 +192,19 @@ a {
 #photoPrincipe2 { right: 20px; }
 
 #margemQuarta{ 
-    display: flex;
+    display: inline-block;
     align-items: center;
-    justify-content: center;
     position: relative;
     text-align: center;
-    width: inherit;
+    width: 1340px;
     height: 120px;
     background-color: rgb(95, 8, 136);
     background-image: linear-gradient(rgb(95, 8, 136),rgb(194, 106, 235));
 }
 
 #margemQuarta2 { 
-    display: flex;
+    display: inline-block;
     align-items: center;
-    justify-content: center;
     position: absolute; 
     bottom: 0px; 
     width: 99%; 
@@ -225,6 +217,7 @@ a {
     position: absolute;
     width: 100px;
     height: 100px;
+    top: 10px;
     border-radius: 50%;
     background: url(https://pbs.twimg.com/media/Gm9rK6yWsAAKP7-?format=jpg&name=360x360) no-repeat center;
     background-size: cover;
@@ -233,9 +226,47 @@ a {
 #photoQuarta { left: 20px; }
 #photoQuarta2 { right: 20px; }
 
+@media screen and (max-width: 480px) { 
+    
+    #margem, #margem2, #margemAcotar, #margemAcotar2, #margemPrincipe, #margemPrincipe2, #margemQuarta, #margemQuarta2 {
+        width: 100%;
+        height: 80px;
+    }
+
+    #photo, #photo2, #photoAcotar, #photoAcotar2, #photoPrincipe, #photoPrincipe2, #photoQuarta, #photoQuarta2{
+        width: 50px;
+        height: 50px;
+        top: 5px;
+    }
+
+    #cards, #cards2, #cards3 {
+        position: absolute; 
+        width: 100px;  
+        height: 100px;
+        margin: 5px;  
+    }
+
+    #cards {
+        left: 45%;  
+        top: 50%;
+        box-shadow: 10px 10px 7px rgb(17, 1, 107);
+    }
+    
+    #cards2 {
+        left: 48%;  
+        top: 50%;
+        box-shadow: 10px 10px 7px rgb(50, 119, 23);
+    }
+    
+    #cards3 {
+        left: 50%;
+        top: 50%;
+        box-shadow: 10px 10px 7px rgb(95, 8, 136);
+    }
+
+    h1.shadow, h1.shadow01, h1.shadow02, h1.shadow03 {
+        font-size: 14px;
+    }
 
 
-
-
-
-
+}

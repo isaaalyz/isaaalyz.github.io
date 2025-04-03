@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Pessoal</title>
     
-    
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
 
     <style>
@@ -13,24 +12,22 @@
             background-image: url(https://pbs.twimg.com/media/GnDRn62XkAEl_y3?format=jpg&name=medium);
             background-size: cover;
             background-position: center;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Didot', serif;
             margin: 0;
             padding: 0;
             background-color: #f7c8d3;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
             text-align: center;
+            position: relative;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
             font-size: 50px;
             position: absolute;
-            left: 160px;
+            left: 25%;
             top: 50px;
+            transform: translateX(-50%);
             margin: 0;
             color: black;
         }
@@ -40,11 +37,12 @@
             color: black; 
         }
 
-        .text-box {
+        .caixaT {
             background-color: rgba(247, 200, 211, 0.9); 
             position: absolute;
-            left: 20px;
+            left: 25%;
             top: 170px;
+            transform: translateX(-50%);
             padding: 20px;
             width: 60%; 
             max-width: 600px; 
@@ -53,35 +51,63 @@
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2); 
         }
 
-        .text-box ul {
+        .caixaT ul {
             list-style-type: disc; 
             padding-left: 20px; 
         }
 
-        .text-box li {
+        .caixaT li {
             font-size: 20px;
             color: black;
             margin-bottom: 10px; 
         }
 
-        .text-box a {
+        .caixaT a {
             text-decoration: none; 
             color: black;
         }
 
+        @media (max-width: 700px) {
+            h1 {
+                left: 50%;
+                text-shadow: -2px -2px 0 rgb(235, 234, 234),  
+                2px -2px 0  rgb(235, 234, 234),  
+                -2px  2px 0  rgb(235, 234, 234),  
+                2px  2px 0  rgb(235, 234, 234);
+                font-size: 30px; 
+                top: 30px;
+            }
+
+            .caixaT {
+                left:50%;
+                width: 80%;
+                top: 120px;
+                padding: 15px;
+            }
+
+            .caixaT li {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <h1><a href="index.html" target="_blank">Onde me encontrar</a></h1>
 
-    <div class="text-box">
-       <ul>
-            <li><a>Email: Isadoralyz3@gmail.com</a></li>
-            <li><a>Instagram: l.y.z.z.a</a></li>
-            <li><a>Número de celular: (41)99703-2029</a></li>
-       </ul> 
-    </div>
+    <div class="caixaT">
+        <ul>
+             <li><b>Email: </b>Isadoralyz3@gmail.com</li>
+             <li><b>Instagram:</b> 
+                 <a href="https://www.instagram.com/l.y.z.z.a/" target="_blank">l.y.z.z.a</a></li>
+             <li><b>TikTok:</b>
+                <a href="https://www.tiktok.com/@hackerdearttt" target="_blank">hackerderattt</a</li>
+             <li><b>Twitter (X):</b>
+                 <a href="https://x.com/Hackerrdeartt" target="_blank">hackerderatt</a</li>
+             <li><b>Número de celular:</b> (41) 99703-2029</li>
+        </ul> 
+     </div>
+     
 
 </body>
 </html>
