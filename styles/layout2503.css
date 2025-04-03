@@ -246,6 +246,11 @@ a {
         margin: 5px;  
     }
 
+    #cards, #cards2, #cards3 {
+    background-color: red; /* Apenas para teste */
+}
+
+
     #cards {
         left: 45%;  
         top: 50%;
