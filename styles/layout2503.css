@@ -246,27 +246,20 @@ a {
         margin: 5px;  
     }
 
-
-
     #cards {
-        background: url(https://pbs.twimg.com/media/Gm9lKPrXoAA0J9f?format=jpg&name=360x360) no-repeat center;
-        background-size: cover;
+
         left: 45%;  
         top: 50%;
         box-shadow: 10px 10px 7px rgb(17, 1, 107);
     }
     
     #cards2 {
-        background: url(https://pbs.twimg.com/media/Gm9rK6xXoAAgPc6?format=jpg&name=medium) no-repeat center;
-        background-size: cover;
         left: 48%;  
         top: 50%;
         box-shadow: 10px 10px 7px rgb(50, 119, 23);
     }
     
     #cards3 {
-        background: url(https://pbs.twimg.com/media/Gm9rK6yWsAAKP7-?format=jpg&name=360x360) no-repeat center;
-        background-size: cover;
         left: 50%;
         top: 50%;
         box-shadow: 10px 10px 7px rgb(95, 8, 136);
