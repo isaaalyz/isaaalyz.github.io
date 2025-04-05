@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFO23</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <style>
+        body {
+            height: 100vh;
+            background-color: rgb(255, 173, 214);
+            overflow: hidden;
+            font-family: "Abril Fatface", serif;
+            background-image: url(https://pbs.twimg.com/media/GnyC4mBWYAATVLC?format=jpg&name=medium);
+            background-position: top 10% left 50%;
+            background-repeat: no-repeat;
+            
+
+        }
+
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: rgba(255, 51, 153, 0.514);
+            border-bottom: 2px solid white;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .titulo {
+            text-shadow: -2px -2px 0 rgb(245, 64, 148);
+            font-family: "Abril Fatface", serif;
+            font-size: 50px;
+            color: white;
+            position: absolute;
+            top: 10%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+        }
+
+        .titulo a {
+
+            text-decoration: none; 
+            color: white;
+        }
+
+        .barra-lateral {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 100vh;
+            background-color: rgba(255, 51, 153, 0.514);
+            border-right: 2px solid white;
+            z-index: 3;
+        }
+
+        .tabela-container {
+            position: relative;
+            margin-left: 80px;
+            margin-top: 180px;
+            background-color: rgba(255, 51, 153, 0.514);
+            padding: 20px;
+            border-radius: 12px;
+            width: 55%;
+            max-width: 95%;
+            overflow-x: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 570px;
+            font-size: 16px;
+        }
+
+        th, td {
+            border: 1px solid white;
+            padding: 8px 12px;
+            text-align: center;
+            color: white;
+            white-space: nowrap;
+        }
+
+        th {
+            background-color: rgb(253, 159, 206);
+            color: white;
+            font-weight: normal;
+        }
+
+        .intervalo {
+            background-color:rgb(253, 159, 206);
+            color: white;
+            font-weight: normal;
+        }
+
+        @media (max-width: 700px) {
+            .titulo {
+                top: 15%;
+                font-size: 20px;
+                left: 60%;
+                white-space: nowrap;
+            }
+
+            .tabela-container {
+                margin-left: 21%;    
+                margin-top: 120px;     
+                width: 65%;            
+            }
+                
+        }
+
+
+
+        
+
+
+       
+  </style>
+</head>
+<body>
+    <h1 class="titulo"><a href="index.html" target="_blank">Cronograma de aula</a></h1>
+    <header></header>
+    <div class="barra-lateral"></div>
+    <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Horários</th>
+              <th>Segunda</th>
+              <th>Terça</th>
+              <th>Quarta</th>
+              <th>Quinta</th>
+              <th>Sexta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>13:15</td>
+              <td>Filosofia III</td>
+              <td>Des. Web</td>
+              <td>História II</td>
+              <td>Intro. à Redes</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>14:05</td>
+              <td>Filosofia III</td>
+              <td>Des. Web</td>
+              <td>História II</td>
+              <td>Intro. à Redes</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>14:55</td>
+              <td>Física III</td>
+              <td>Des. Web</td>
+              <td>Matemática III</td>
+              <td>Biologia II</td>
+              <td>Eng. Software II</td>
+            </tr>
+            <tr class="intervalo">
+              <td colspan="6">Intervalo</td>
+            </tr>
+            <tr>
+              <td>16:00</td>
+              <td>Física III</td>
+              <td>Des. Web</td>
+              <td>Matemática III</td>
+              <td>Biologia II</td>
+              <td>Eng. Software II</td>
+            </tr>
+            <tr>
+              <td>16:50</td>
+              <td></td>
+              <td>Geografia II</td>
+              <td>Artes II</td>
+              <td>Ed. Física II</td>
+              <td>Português III</td>
+            </tr>
+            <tr>
+              <td>17:40</td>
+              <td></td>
+              <td>Geografia II</td>
+              <td></td>
+              <td></td>
+              <td>Português III</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    
+</body>
+</html>
+
+           

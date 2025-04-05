@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFO23</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <style>
+       body {
+            height: 100vh;
+            background-color: rgb(255, 173, 214);
+            overflow: hidden;
+            font-family: "Abril Fatface", serif;
+            background-image: url(https://pbs.twimg.com/media/GnyC4mBWYAATVLC?format=jpg&name=medium);
+            background-position: top 10% left 50%;
+            background-repeat: no-repeat;
+            
+
+        }
+
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: rgba(255, 51, 153, 0.514);
+            border-bottom: 2px solid white;
+            text-align: center;
+            z-index: 2;
+        }
+
+        h1 {
+            text-shadow: -2px -2px 0 rgb(245, 64, 148);
+            font-family: "Abril Fatface", serif;
+            font-size: 50px;
+            color: white;
+            position: absolute;
+            top: 15%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+        }
+
+        .barra-lateral {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 100vh;
+            background-color: rgba(255, 51, 153, 0.514);
+            border-right: 2px solid white;
+            z-index: 3;
+        }
+
+        .icone-menu {
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            border-bottom: 2px solid white;
+            padding-bottom: 5px;
+            display: none;
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            top: 150px;
+            left: 60px;
+            background: rgb(245, 64, 148);
+            padding: 10px;
+            list-style: none;
+            text-align: left;
+            border-radius: 5px;
+            border: 1px solid white;
+            box-shadow: 2px 2px 5px rgba(255, 255, 255, 0.45);
+        }
+
+        .menu li {
+            font-size: 20px;
+            color: white;
+            margin-bottom: 10px;
+            padding: 5px;
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white; 
+        }
+
+        main {
+            position: absolute;
+            text-decoration: none;
+            top: 67%;
+            left: 33%;
+            transform: translate(-50%, -50%);
+        }
+
+        main ul {
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        main li {
+            text-decoration: none;
+            font-family:  "Abril Fatface", serif;
+            font-size: 40px;
+            color: white;
+            margin-bottom: 60px;
+            padding-left: 20px;
+        }
+        main a {
+            text-decoration: none;
+            color: white; 
+        }
+
+
+        @media (max-width: 700px) {
+    body{
+        background-image: url("https://pbs.twimg.com/media/GnyKyqLXUAAFfnJ?format=jpg&name=small");
+         background-position: 2% top;
+    }
+
+    h1 {
+        font-size: 27px; 
+        top: 10%;
+        left: 60%;
+
+    }
+
+    main {
+        display: none; 
+    }
+
+    .menu {
+        top: 16%;
+        width: 66%; 
+        left: 24%;
+    }
+
+    .icone-menu {
+        display: block;
+    }
+}
+
+        
+    </style>
+</head>
+<body>
+    <h1>INFO23</h1>
+    <header></header>
+    <div class="barra-lateral">
+        <div class="icone-menu" id="iconeMenu">
+            <span class="material-symbols-outlined">devices</span>
+        </div>
+    </div>
+
+    <ul class="menu" id="menu">
+        <li><a href="pag1.html" target="_blank">Sobre INFO23</a></li>
+        <li><a href="pag2.html" target="_blank">Cronograma de aula</a></li>
+        <li><a href="https://docs.google.com/spreadsheets/d/1PadIQMyyYwRRLSony8pOUFGBJBkISPK6PZh3mewiNtM/edit?gid=877061860#gid=877061860" 
+        target="_blank">Atividades Escolares</a></li>
+        <li><a href="pag3.html" target="_blank">Informações sobre os professores</a></li>
+       
+    </ul>
+
+    <main>
+        <ul>
+            <li><a href="pag1.html" target="_blank">Sobre INFO23</a></li>
+            <li><a href="pag2.html" target="_blank">Cronograma de aula</a></li>
+            <li><a href="https://docs.google.com/spreadsheets/d/1PadIQMyyYwRRLSony8pOUFGBJBkISPK6PZh3mewiNtM/edit?gid=877061860#gid=877061860" 
+            target="_blank">Atividades Escolares</a></li>
+            <li><a href="pag3.html" target="_blank">Informações sobre os professores</a></li>
+        </ul>
+    </main>
+
+    <script>
+
+        var iconeMenu = document.getElementById("iconeMenu");
+        var menu = document.getElementById("menu");
+
+        iconeMenu.onclick = function() {
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
+
+           

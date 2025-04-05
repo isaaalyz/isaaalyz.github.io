@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFO23</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <style>
+        body {
+            height: 100vh;
+            background-color: rgb(255, 173, 214);
+            overflow: hidden;
+            font-family: "Abril Fatface", serif;
+            background-image: url(https://pbs.twimg.com/media/GnyC4mBWYAATVLC?format=jpg&name=medium);
+            background-position: top 10% left 67%;
+            background-repeat: no-repeat;
+            
+
+        }
+
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background-color: rgba(255, 51, 153, 0.514);
+            border-bottom: 2px solid white;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .titulo {
+            text-shadow: -2px -2px 0 rgb(245, 64, 148);
+            font-family: "Abril Fatface", serif;
+            font-size: 50px;
+            color: white;
+            position: absolute;
+            top: 10%;
+            left: 38%;
+            transform: translate(-50%, -50%);
+        }
+
+        .titulo a {
+
+            text-decoration: none; 
+            color: white;
+        }
+
+        .barra-lateral {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 100vh;
+            background-color: rgba(255, 51, 153, 0.514);
+            border-right: 2px solid white;
+            z-index: 3;
+        }
+
+        .tabela-container {
+            position: relative;
+            margin-left: 80px;
+            margin-top: 10%;
+            background-color: rgba(255, 51, 153, 0.514);
+            padding: 20px;
+            border-radius: 12px;
+            width: 60%;
+            max-width: 95%;
+            height: 400px;
+            overflow-x: auto;
+
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 570px;
+            font-size: 16px;
+        }
+
+        th, td {
+            border: 1px solid white;
+            padding: 8px 12px;
+            text-align: center;
+            color: white;
+            white-space: nowrap;
+            text-decoration: none;
+          
+        }
+
+        a{
+            color: white;
+            text-decoration: none;
+        }
+        
+
+        th {
+            background-color: rgb(253, 159, 206);
+            color: white;
+            font-weight: normal;
+        }
+
+        .intervalo {
+            background-color:rgb(253, 159, 206);
+            color: white;
+            font-weight: normal;
+        }
+
+        @media (max-width: 700px) {
+            .titulo {
+                top: 15%;
+                font-size: 15px;
+                left: 60%;
+                white-space: nowrap;
+            }
+
+            .tabela-container {
+                margin-left: 21%;    
+                margin-top: 120px;     
+                width: 65%;            
+            }
+
+            body {
+                height: 100vh;
+                background-color: rgb(255, 173, 214);
+                overflow: hidden;
+                font-family: "Abril Fatface", serif;
+                background-image: url(https://pbs.twimg.com/media/GnyC4mBWYAATVLC?format=jpg&name=medium);
+                background-position: top 10% left 50%;
+                background-repeat: no-repeat;
+                
+            }
+                
+        }
+
+      
+  </style>
+</head>
+<body>
+    <h1 class="titulo"><a href="index.html" target="_blank">Informações sobre os professores</a></h1>
+    <header></header>
+    <div class="barra-lateral"></div>
+    <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Disciplina</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jiusandro</td>
+              <td>Física III</td>
+              <td>jiusandro.kuhn@ifpr.edu.br /
+                <a href="http://www.jiusandro.com.br" target="_blank"> http://www.jiusandro.com.br</a></td>
+            </tr>
+            <tr>
+              <td>Gil Eduardo</td>
+              <td>Des. Web</td>
+              <td>gil.andrade@ifpr.edu.br</td>
+            </tr>
+            <tr>
+              <td>Bárbara</td>
+              <td>Geografia II</td>
+              <td>barbara.cunha@ifpr.edu.br</td>
+            </tr>
+            <tr>
+              <td>Marcos Araújo</td>
+              <td>História II</td>
+              <td>marcos.araujo@ifpr.edu.br</td>
+            </tr>
+            <tr>
+              <td>Roberta</td>
+              <td>Matemática III</td>
+              <td>roberta@ifpr.edu.br / 
+                <a href=" www.robertasuero.com.br" target="_blank">www.robertasuero.com.br</a></td>
+              </td>
+            </tr>
+            <tr>
+              <td>Rogério</td>
+              <td>Filosofia III</td>
+              <td>rogerio.baptistella@ifpr.edu.br</td>
+            </tr>
+            <tr>
+              <td>Leandro e Alexandre</td>
+              <td>Artes II</td>
+              <td>alexandre.chiarelli@ifpr.edu.br/ leandro.gumboski@ifpr.edu.br</td>
+            </tr>
+            <tr>
+              <td>Luíz</td>
+              <td>Intro. à Redes</td>
+              <td>luiz.efigenio@ifpr.edu.br</td>
+            </tr>
+            <tr>
+              <td>Adriana</td>
+              <td>Biologia II</td>
+              <td>adriana@ifpr.edu.br</td>
+            </tr>
+            <tr>
+              <td>Talita</td>
+              <td>Ed. Física II</td>
+              <td>talita.assis@ifpr.edu.br</td>
+            </tr>
+            <tr>
+              <td>Maria Carolina</td>
+              <td>Eng. Software II</td>
+              <td>maria.carolina@ifpr.edu.br</td>
+            </tr>
+            <tr>
+              <td>Eugênio</td>
+              <td>Português III</td>
+              <td>eugenio.lima@ifpr.edu.br</td>
+            </tr>
+            <tr>
+              <td>Info23</td>
+              <td>Turma</td>
+              <td>info23pgua@gmail.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+</body>
+</html>
+
+           
