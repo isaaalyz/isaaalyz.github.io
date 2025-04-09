@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html lang="pt-br"> 
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    
+    <style> 
+        * { 
+            padding: 0; 
+            margin: 0; 
+        } 
+        .border { 
+            border: 1px solid white; 
+             
+        } 
+        body { 
+            display: grid; 
+            min-height: 100vh; 
+            grid-template-rows: 100px 100px 1fr 40px; 
+            grid-template-columns: 1fr; 
+            grid-template-areas: 
+                'topo'
+                'menu'
+                'main'
+                'rodape';
+        } 
+        header {
+            padding: 20px; 
+            grid-area: topo; 
+            background-color: blue; 
+        } 
+        nav { 
+            padding: 20px;
+            grid-area: menu; 
+            background-color: blue; 
+        } 
+        main {
+            grid-area: main;
+            background-color: white;
+        }
+        footer { 
+            padding: 10px;
+            grid-area: rodape; 
+            background-color: yellow; 
+        } 
+    </style> 
+</head> 
+<body> 
+    <header class="border"> 
+    </header> 
+    <nav class="border"></nav> 
+    <main class="border"></main>    
+    <footer class="border"></footer> 
+</body> 
+</html>
