@@ -21,36 +21,29 @@ h1 {
   font-family: "Trirong", serif;
   font-size: 50px;
   color: black;
-  margin-top: 20px;
-  margin-left: 40px;
+  text-align: center;
 }
 
 h2 {
   font-family: "Trirong", serif;
   font-size: 30px;
   color: black;
-  margin-left: 36%;
+  text-align: center;
 }
 
 h3 {
   font-family: "Trirong", serif;
   font-size: 25px;
   color: black;
-  margin-left: 30%;
-  margin-top: 10px;
+  text-align: center;
 }
 
 .quadrado {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-line-pack: start;
-      align-content: flex-start;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  align-content: flex-start;
+  flex-wrap: wrap;
   width: 300px;
-  margin-left: 85px;
-  outline: none;
+  text-align: center;
 }
 
 .quadrado > div {
@@ -64,6 +57,7 @@ h3 {
 
 .quadrado:focus {
   border-style: solid;
+  outline: none;
   border-color: rgb(0, 0, 0);
   border-radius: 5px;
 }/*# sourceMappingURL=style.css.map */
