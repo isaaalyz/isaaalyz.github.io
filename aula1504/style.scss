@@ -1,0 +1,72 @@
+body{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    font-family: 'Didot', serif;
+    background-color: white;
+}
+
+.margemlateral{
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 30%;
+    height: 100vh;
+    background-size: cover;
+    left:0;
+    background-color: rgb(245, 158, 215);
+}
+
+h1 {
+    font-family:"Trirong", serif; 
+    font-size: 50px;
+    color: black;
+    margin-top: 20px;
+    margin-left: 40px; 
+}
+
+h2 {
+    font-family: "Trirong", serif; 
+    font-size: 30px;
+    color: black; 
+    margin-left: 36%; 
+}
+
+h3 {
+    font-family: "Trirong", serif; 
+    font-size: 25px;
+    color: black; 
+    margin-left: 30%; 
+    margin-top: 10px;
+}
+
+.quadrado {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    width: 300px;
+    margin-left: 85px;
+    outline: none; 
+}
+
+.quadrado > div {
+    margin: 10px;
+    padding: 10px;
+    font-size: 30px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+}
+
+.quadrado:focus {
+    border-style: solid;
+    
+    border-color:rgb(0, 0, 0);
+    border-radius: 5px;
+    
+}
+    
+
+
+
+
