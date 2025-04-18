@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +12,58 @@
             <h2>FlexBox</h2>
             <h3>Preenchimento</h3>
             <div class="quadrado">
-                <div style ="background-color: rgb(198, 134, 245);"></div>
-                <div style ="background-color: rgb(177, 125, 226);"></div>
-                <div style ="background-color: rgb(143, 159, 247);"></div>
-                <div style ="background-color: rgb(237, 129, 201);"></div>
-                <div style ="background-color: rgb(166, 248, 155);"></div>
-                <div style ="background-color: rgb(224, 248, 130);"></div>
-               
+                <div style="background-color: rgb(198, 134, 245);"></div>
+                <div style="background-color: rgb(226, 125, 125);"></div>
+                <div style="background-color: rgb(143, 159, 247);"></div>
+                <div style="background-color: rgb(237, 129, 201);"></div>
+                <div style="background-color: rgb(166, 248, 155);"></div>
+                <div style="background-color: rgb(224, 248, 130);"></div>
             </div>
+
+            <h3 style="margin-top: 10px;">Formato</h3>
+            <div class="container">
+                <div class="quadrado2"></div>      
+                <div class="circulo2"></div> 
+            </div>
+        
+            <h3 style="margin-top: 10px;">Tamanho</h3>
+            <input type="number" style id="tamanho" min="5" max="50" value="5" onchange="alteraTamanho()">
+            
+            <h3 style="margin-top: 10px;">Alinhamento</h3>
+            <div class="choicebox-alinha">
+                <label for="flex-Direction"><b>Direção do Flex (Flex-direction)</b></label>
+                <select id="flex-Direction" class="choicebox" onchange="alteraAlinha()">
+                    <option value="row">Linha (Row)</option>
+                    <option value="row-reverse">Linha Invertida (Row-everse)</option>
+                    <option value="column">Coluna (Column)</option>
+                    <option value="column-reverse">Coluna Invertida (Column-reverse)</option>
+                </select>
+
+                <label for="justify-Content"><b>Justificar o Conteúdo (Justify-content)</b></label>
+                <select id="justify-Content" class="choicebox" onchange="alteraAlinha()">
+                    <option value="flex-start">Início (flex-start)</option>
+                    <option value="flex-end">Fim (Flex-end)</option>
+                    <option value="center">Centro (Center)</option>
+                    <option value="space-around">Espaço ao Redor (Space-around)</option>
+                    <option value="space-between">Espaço Entre (Space-between)</option>
+                    <option value="space-evenly">Espaço Igual (Space-evenly)</option>
+                </select>
+
+                <label for="align-Items"><b>Alinhar os Itens (Align-items)</b></label>
+                <select id="align-Items" class="choicebox" onchange="alteraAlinha()">
+                    <option value="stretch">Esticar (Stretch)</option>
+                    <option value="flex-start">Início (Flex-start)</option>
+                    <option value="flex-end">Fim (Flex-end)</option>
+                    <option value="center">Centro (Center)</option>
+                    <option value="baseline">Linha de Base (Baseline)</option>
+                </select>
+            </div>            
+        </div>
+        <div class="quadradao">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </body>
+    <script src="script.js"></script>
 </html>

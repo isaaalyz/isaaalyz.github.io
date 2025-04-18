@@ -1,70 +1,222 @@
-body{
+* { 
+    padding: 0; 
+    margin: 0; 
+} 
+
+body {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    overflow: hidden;
+    grid-template-columns: 30% 70%; 
+    overflow: auto;
     font-family: 'Didot', serif;
     background-color: white;
 }
 
-.margemlateral{
-    display: block;
-    position: absolute;
-    top: 0;
-    width: 30%;
+.margemlateral {
+    width: 100%;  
     height: 100vh;
-    background-size: cover;
-    left:0;
     background-color: rgb(245, 158, 215);
 }
 
 h1 {
-    font-family:"Trirong", serif; 
-    font-size: 50px;
+    font-family: "Trirong", serif; 
+    font-size: 40px;
     color: black;
     text-align: center;
 }
 
-h2 {
+h2, h3 {
     font-family: "Trirong", serif; 
-    font-size: 30px;
     color: black; 
     text-align: center;
-} 
+}
 
+h2 {
+    font-size: 25px;
+    margin-top: 5px;
+}
 
 h3 {
-    font-family: "Trirong", serif; 
-    font-size: 25px;
-    color: black; 
-    text-align: center;
+    font-size: 20px;
+    margin-top: 10px;
 }
 
 .quadrado {
     display: flex;
     align-content: flex-start;
     flex-wrap: wrap;
-    width: 300px;
-    text-align: center;
+    width: 200px;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .quadrado > div {
-    margin: 10px;
+    margin: 5px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: rgb(156, 156, 156);
     padding: 10px;
-    font-size: 30px;
-    width: 40px;
-    height: 40px;
+    width: 30px; 
+    height: 30px;
+    background-color: white;
+}
+
+.container {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    gap: 20px; 
+}
+
+.quadrado2, .circulo2 {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border: 2px solid rgb(156, 156, 156); 
+}
+
+.circulo2 {
+  border-radius: 50%; 
+}
+
+
+input {
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: rgb(156, 156, 156);
+    width: 35%;
+    height: 25px;
+    margin-left: 130px;
+    margin-top: 2px;
     text-align: center;
 }
 
-.quadrado:focus {
-    border-style: solid;
+input:focus {
     outline: none; 
-    border-color:rgb(0, 0, 0);
-    border-radius: 5px;
-    
+    border-color: rgb(0, 0, 0);
 }
+
+.choicebox-alinha {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.choicebox-alinha label {
+    margin-top: 10px;
+    text-align: center;
+}
+.choicebox {
+    width: 50%;
+    margin-top: 2px;
+    padding: 2px 0;
+   text-align: center;
+    border-style: solid;
+    border-color: rgb(156, 156, 156);
+    border-radius: 5px;
+}
+
+.borderClick{
+    outline: 2px solid black;
+}
+.quadradao {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.quadradao > div {
+    margin: 5px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: black;
+    margin-left: 100px;
+    width: 50px; 
+    height: 50px;
+    background-color: white;
+   
+}
+
+@media screen and (max-width: 640px) {
+
+    h1, h2, h3 {
+        font-size: 20px;
+    }
+    .quadrado {
+        margin: 0; 
+        justify-content:left;
+        width: 170px;
+    }
     
+    .quadrado > div {
+        margin: 5px;
+        border-style: solid;
+        border-radius: 5px;
+        border-color: rgb(156, 156, 156);
+        padding: 10px;
+        width: 10px; 
+        height: 10px;
+        background-color: white;
+    }
+    
+    input {
+        font-size: 20px;
+        border-style: solid;
+        border-radius: 5px;
+        border-color: rgb(156, 156, 156);
+        width: 35%;
+        height: 25px;
+        margin-left: 45px;
+        margin-top: 2px;
+        text-align: center;
+    }
+    
+    input:focus {
+        outline: none; 
+        border-color: rgb(0, 0, 0);
+    }
+    
+    .choicebox-alinha {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .choicebox-alinha label {
+        margin-top: 10px;
+        text-align: center;
+    }
+    .choicebox {
+        width: 50%;
+        margin-top: 2px;
+        padding: 2px 0;
+       text-align: center;
+        border-style: solid;
+        border-color: rgb(156, 156, 156);
+        border-radius: 5px;
+    }
+    
+    .quadradao {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+       
+    }
+    
+    .quadradao > div {
+        margin: 5px;
+        border-style: solid;
+        border-radius: 5px;
+        border-color: black;
+        margin-left: 30px;
+        width: 50px; 
+        height: 50px;
+        background-color: white;
+       
+    }
 
-
-
-
+}
