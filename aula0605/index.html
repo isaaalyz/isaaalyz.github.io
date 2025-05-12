@@ -12,6 +12,8 @@
     body {
       background-image: url("principal.jpg");
       background-size: cover;
+      margin: 0;
+      padding: 0;
     }
 
     .card {
@@ -29,18 +31,44 @@
       font-size: 20px;
       font-weight: bold;
     }
+
+    #foguete {
+      z-index: 1;
+    }
+
+    #missil1, #missil2 {
+      z-index: 2;
+    }
+
+    #pauseOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #pauseText {
+      font-size: 48px;
+      font-weight: bold;
+      color: rgb(53, 113, 243);
+      text-shadow: 2px 2px 4px black;
+    }
   </style>
 </head>
 <body onload="startContador()">
 
- 
-  <img src="missil.png" alt="Míssil 1" width="20" style="position: absolute; bottom: 120px; right: 45%;">
-  <img src="missil.png" alt="Míssil 2" width="20" style="position: absolute; bottom: 120px; left: 49%;">
-  <img src="nave.png" alt="Nave" width="110" style="position: absolute; bottom: 80px; left: 48%;">
+  <img id="missil1" src="missil.png" alt="Míssil 1" width="20" style="position: absolute; bottom: 120px; left: 0px;">
+  <img id="missil2" src="missil.png" alt="Míssil 2" width="20" style="position: absolute; bottom: 120px; left: 0px;">
+  <img id="foguete" src="nave.png" alt="Nave" width="110" style="position: absolute; bottom: 80px; left: 48%;">
 
   <div class="card text-center">
     <div class="corpo-cartao">
-    
       <div class="row mb-2 ms-1 mt-3 align-items-center">
         <div class="col-auto">
           <img src="clock.png" width="40">
@@ -49,48 +77,41 @@
           <h3 id="v" class="contador">00:00:00</h3>
         </div>
       </div>
-
-     
       <div class="row mb-2 ms-3 mt-4">
         <div class="col-auto">
           <img src="missil.png" width="20">
         </div>
+        <div class="col mt-4">
+          <h5>Life: 3</h5>
+        </div>
       </div>
-
-    
       <div class="row mb-2 ms-1 mt-4">
         <div class="col-auto">
           <img src="alien.png" width="40">
+        </div>
+        <div class="col ms-1">
+          <h5>Alien: 4</h5>
         </div>
       </div>
     </div>
   </div>
 
+  <div id="pauseOverlay">
+    <div id="pauseText">GAME PAUSED</div>
+  </div>
+
   <script>
-    let s = 0;
-    let m = 0;
-    let h = 0;
-    let pausado = false;
-    let intervalo;
+    let s = 0, m = 0, h = 0, pausado = false, intervalo;
 
     function atualizarTempo() {
       if (!pausado) {
         s++;
+        if (s === 60) { s = 0; m++; }
+        if (m === 60) { m = 0; h++; }
 
-        if (s === 60) {
-          s = 0;
-          m++;
-        }
-
-        if (m === 60) {
-          m = 0;
-          h++;
-        }
-
-     
-        let ss = (s < 10) ? "0" + s : s;
-        let mm = (m < 10) ? "0" + m : m;
-        let hh = (h < 10) ? "0" + h : h;
+        let ss = s < 10 ? "0" + s : s;
+        let mm = m < 10 ? "0" + m : m;
+        let hh = h < 10 ? "0" + h : h;
 
         document.getElementById("v").textContent = `${hh}:${mm}:${ss}`;
       }
@@ -100,12 +121,103 @@
       intervalo = setInterval(atualizarTempo, 1000);
     }
 
-   
     document.addEventListener("keydown", function (e) {
-      if (e.key === "p" || e.key === "P") {
-        pausado = !pausado;
+      if (e.key === "L" || e.key === "l") {
+        pausado = true;
+        document.getElementById("pauseOverlay").style.display = "flex";
+      } else if (e.key === "B" || e.key === "b") {
+        pausado = false;
+        document.getElementById("pauseOverlay").style.display = "none";
       }
     });
+
+    let foguete = document.querySelector("#foguete");
+    let missil1 = document.querySelector("#missil1");
+    let missil2 = document.querySelector("#missil2");
+    let card = document.querySelector(".card");
+
+    foguete.addEventListener("mouseover", () => document.addEventListener("mousemove", moverFoguete));
+    foguete.addEventListener("mouseout", () => document.removeEventListener("mousemove", moverFoguete));
+
+    function moverFoguete(e) {
+      let cardRight = card.getBoundingClientRect().right;
+      let larguraFoguete = foguete.offsetWidth;
+      let novaLeft = e.clientX - larguraFoguete / 2;
+
+      if (novaLeft < cardRight + 10) novaLeft = cardRight + 10;
+      if (novaLeft > window.innerWidth - larguraFoguete - 10) novaLeft = window.innerWidth - larguraFoguete - 10;
+
+      foguete.style.left = novaLeft + "px";
+      atualizarPosicaoMisseis();
+    }
+
+    function atualizarPosicaoMisseis() {
+      let posFoguete = parseInt(foguete.style.left) || 0;
+      missil1.style.left = (posFoguete + 10) + "px";
+      missil2.style.left = (posFoguete + 70) + "px";
+    }
+
+    let emVoo = [false, false];
+    let chegouTopo = [false, false];
+    let clickTimer = null;
+
+    function lancarMissil(missil, index) {
+      if (emVoo[index] || pausado) return;
+      emVoo[index] = true;
+      chegouTopo[index] = false;
+
+      let pos = parseInt(missil.style.bottom) || 120;
+      let animacao = setInterval(function () {
+        if (pausado) return; // impede animação durante pausa
+
+        if (pos >= window.innerHeight - 40) {
+          clearInterval(animacao);
+          chegouTopo[index] = true;
+
+          if (chegouTopo[0] && chegouTopo[1]) {
+            setTimeout(() => {
+              missil1.style.bottom = "120px";
+              missil2.style.bottom = "120px";
+              emVoo[0] = false;
+              emVoo[1] = false;
+              chegouTopo[0] = false;
+              chegouTopo[1] = false;
+              atualizarPosicaoMisseis();
+            }, 100);
+          }
+        } else {
+          pos += 10;
+          missil.style.bottom = pos + "px";
+        }
+      }, 20);
+    }
+
+    foguete.addEventListener("click", function () {
+      if (clickTimer || pausado) return;
+      clickTimer = setTimeout(() => {
+        if (!emVoo[0]) {
+          lancarMissil(missil1, 0);
+        } else if (!emVoo[1]) {
+          lancarMissil(missil2, 1);
+        }
+        clickTimer = null;
+      }, 100);
+    });
+
+    foguete.addEventListener("dblclick", function () {
+      if (pausado) return;
+      clearTimeout(clickTimer);
+      clickTimer = null;
+      if (!emVoo[0] && !emVoo[1]) {
+        lancarMissil(missil1, 0);
+        lancarMissil(missil2, 1);
+      }
+    });
+
+    window.onload = function () {
+      atualizarPosicaoMisseis();
+      startContador();
+    };
   </script>
 
 </body>
