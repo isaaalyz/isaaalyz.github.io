@@ -14,9 +14,10 @@
       background-size: cover;
       margin: 0;
       padding: 0;
+      transition: background-image 0.5s ease;
     }
 
-    .card {
+    .painel {
       position: absolute;
       top: 20px;
       left: 20px;
@@ -27,7 +28,7 @@
       box-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px white;
     }
 
-    .contador {
+    .temporizador {
       font-size: 20px;
       font-weight: bold;
     }
@@ -36,11 +37,11 @@
       z-index: 1;
     }
 
-    #missil1, #missil2 {
+    #missilEsquerdo, #missilDireito {
       z-index: 2;
     }
 
-    #pauseOverlay {
+    #telaPausa, #telaMensagem {
       position: fixed;
       top: 0;
       left: 0;
@@ -53,28 +54,35 @@
       justify-content: center;
     }
 
-    #pauseText {
+    #textoPausa, #textoMensagem {
       font-size: 48px;
       font-weight: bold;
       color: rgb(53, 113, 243);
       text-shadow: 2px 2px 4px black;
     }
+
+    .alien {
+      transition: top 0.1s linear;
+    }
   </style>
 </head>
-<body onload="startContador()">
+<body onload="iniciarJogo()">
 
-  <img id="missil1" src="missil.png" alt="Míssil 1" width="20" style="position: absolute; bottom: 120px; left: 0px;">
-  <img id="missil2" src="missil.png" alt="Míssil 2" width="20" style="position: absolute; bottom: 120px; left: 0px;">
+  <img id="missilEsquerdo" src="missil.png" alt="Míssil Esquerdo" width="20" style="position: absolute; bottom: 120px; display: none;">
+  <img id="missilDireito" src="missil.png" alt="Míssil Direito" width="20" style="position: absolute; bottom: 120px; display: none;">
   <img id="foguete" src="nave.png" alt="Nave" width="110" style="position: absolute; bottom: 80px; left: 48%;">
+  <img id="alienEsquerdo" class="alien" src="alien.png" alt="Alien Esquerdo" width="150" style="position: absolute; top: -100px; left: 60%; display: none;">
+  <img id="alienMeio" class="alien" src="alien.png" alt="Alien Meio" width="150" style="position: absolute; top: -100px; left: 45%; display: none;">
+  <img id="alienDireito" class="alien" src="alien.png" alt="Alien Direito" width="150" style="position: absolute; top: -100px; left: 30%; display: none;">
 
-  <div class="card text-center">
+  <div class="painel text-center">
     <div class="corpo-cartao">
       <div class="row mb-2 ms-1 mt-3 align-items-center">
         <div class="col-auto">
           <img src="clock.png" width="40">
         </div>
         <div class="col">
-          <h3 id="v" class="contador">00:00:00</h3>
+          <h3 id="temporizador" class="temporizador">00:00:00</h3>
         </div>
       </div>
       <div class="row mb-2 ms-3 mt-4">
@@ -82,7 +90,7 @@
           <img src="missil.png" width="20">
         </div>
         <div class="col mt-4">
-          <h5>Life: 3</h5>
+          <h5 id="vidas">Vida: 3</h5>
         </div>
       </div>
       <div class="row mb-2 ms-1 mt-4">
@@ -90,135 +98,535 @@
           <img src="alien.png" width="40">
         </div>
         <div class="col ms-1">
-          <h5>Alien: 4</h5>
+          <h5 id="aliensAbatidos">Alien: 0</h5>
+        </div>
+      </div>
+      <div class="row mb-2 ms-1 mt-4">
+        <div class="col ms-1">
+          <h5 id="faseAtual"></h5>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="pauseOverlay">
-    <div id="pauseText">GAME PAUSED</div>
+  <div id="telaPausa">
+    <div id="textoPausa">JOGO PAUSADO</div>
+  </div>
+
+  <div id="telaMensagem">
+    <div id="textoMensagem"></div>
   </div>
 
   <script>
-    let s = 0, m = 0, h = 0, pausado = false, intervalo;
+    // Tempo do jogo
+    let tempo = {
+      segundos: 0,
+      minutos: 0,
+      horas: 0,
+      intervalo: null
+    };
+    
+    // Estados do jogo
+    let estadoJogo = {
+      pausado: false,
+      ativo: true,
+      faseAtual: 1,
+      velocidadeAliens: 1
+    };
+    
+    // Pontuação e vidas
+    let placar = {
+      vidas: 3,
+      aliensAbatidos: 0
+    };
+    
+    // Elementos do jogo
+    let elementos = {
+      foguete: document.getElementById("foguete"),
+      missilEsquerdo: document.getElementById("missilEsquerdo"),
+      missilDireito: document.getElementById("missilDireito"),
+      alienEsquerdo: document.getElementById("alienEsquerdo"),
+      alienMeio: document.getElementById("alienMeio"),
+      alienDireito: document.getElementById("alienDireito"),
+      painel: document.querySelector(".painel"),
+      temporizador: document.getElementById("temporizador"),
+      vidas: document.getElementById("vidas"),
+      aliensAbatidos: document.getElementById("aliensAbatidos"),
+      faseAtual: document.getElementById("faseAtual"),
+      telaPausa: document.getElementById("telaPausa"),
+      telaMensagem: document.getElementById("telaMensagem"),
+      textoMensagem: document.getElementById("textoMensagem")
+    };
+    
+    // Controle de mísseis
+    let misseis = {
+      esquerdo: { ativo: false, noTopo: false, animacao: null },
+      direito: { ativo: false, noTopo: false, animacao: null }
+    };
+    
+    // Controle de aliens
+    let aliens = {
+      intervalos: {},
+      imagens: ["principal.jpg", "fase2.jpg", "fase3.jpg", "fase4.jpg"]
+    };
 
-    function atualizarTempo() {
-      if (!pausado) {
-        s++;
-        if (s === 60) { s = 0; m++; }
-        if (m === 60) { m = 0; h++; }
-
-        let ss = s < 10 ? "0" + s : s;
-        let mm = m < 10 ? "0" + m : m;
-        let hh = h < 10 ? "0" + h : h;
-
-        document.getElementById("v").textContent = `${hh}:${mm}:${ss}`;
-      }
-    }
-
-    function startContador() {
-      intervalo = setInterval(atualizarTempo, 1000);
-    }
-
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "L" || e.key === "l") {
-        pausado = true;
-        document.getElementById("pauseOverlay").style.display = "flex";
-      } else if (e.key === "B" || e.key === "b") {
-        pausado = false;
-        document.getElementById("pauseOverlay").style.display = "none";
-      }
-    });
-
-    let foguete = document.querySelector("#foguete");
-    let missil1 = document.querySelector("#missil1");
-    let missil2 = document.querySelector("#missil2");
-    let card = document.querySelector(".card");
-
-    foguete.addEventListener("mouseover", () => document.addEventListener("mousemove", moverFoguete));
-    foguete.addEventListener("mouseout", () => document.removeEventListener("mousemove", moverFoguete));
-
-    function moverFoguete(e) {
-      let cardRight = card.getBoundingClientRect().right;
-      let larguraFoguete = foguete.offsetWidth;
-      let novaLeft = e.clientX - larguraFoguete / 2;
-
-      if (novaLeft < cardRight + 10) novaLeft = cardRight + 10;
-      if (novaLeft > window.innerWidth - larguraFoguete - 10) novaLeft = window.innerWidth - larguraFoguete - 10;
-
-      foguete.style.left = novaLeft + "px";
+    function iniciarJogo() {
+      // Posiciona o foguete inicialmente
+      elementos.foguete.style.left = "48%";
+      
+      // Mostra os mísseis
+      elementos.missilEsquerdo.style.display = "block";
+      elementos.missilDireito.style.display = "block";
       atualizarPosicaoMisseis();
+      
+      // Mostra os aliens
+      elementos.alienEsquerdo.style.display = "block";
+      elementos.alienMeio.style.display = "block";
+      elementos.alienDireito.style.display = "block";
+      
+      // Inicia outros componentes do jogo
+      iniciarContador();
+      iniciarAliens();
     }
+
+    function iniciarContador() {
+  // Limpa qualquer intervalo existente antes de criar um novo
+  if (tempo.intervalo) {
+    clearInterval(tempo.intervalo);
+  }
+  tempo.intervalo = setInterval(atualizarRelogio, 1000);
+}
+    function atualizarRelogio() {
+      if (!estadoJogo.pausado && estadoJogo.ativo) {
+        tempo.segundos++;
+        if (tempo.segundos === 60) { tempo.segundos = 0; tempo.minutos++; }
+        if (tempo.minutos === 60) { tempo.minutos = 0; tempo.horas++; }
+
+        const strSegundos = tempo.segundos < 10 ? "0" + tempo.segundos : tempo.segundos;
+        const strMinutos = tempo.minutos < 10 ? "0" + tempo.minutos : tempo.minutos;
+        const strHoras = tempo.horas < 10 ? "0" + tempo.horas : tempo.horas;
+
+        elementos.temporizador.textContent = `${strHoras}:${strMinutos}:${strSegundos}`;
+      }
+    }
+
+    document.addEventListener("keydown", function(event) {
+  if (!estadoJogo.ativo) return; // Não faz nada se o jogo não estiver ativo
+  
+  const tecla = event.key.toLowerCase();
+  
+  // Pausar/Despausar
+  if (tecla === 'l') {
+    pausarJogo();
+    return;
+  }
+  
+  if (tecla === 'b') {
+    continuarJogo();
+    return;
+  }
+  
+  if (estadoJogo.pausado) return; // Ignora outras teclas se o jogo estiver pausado
+  
+  // Movimento e disparo
+  const velocidadeMovimento = 20;
+  const fogueteRect = elementos.foguete.getBoundingClientRect();
+  const posAtual = fogueteRect.left;
+  const larguraFoguete = fogueteRect.width;
+  
+  if (tecla === 'a') { // Move para esquerda
+    const novaPosicao = Math.max(elementos.painel.getBoundingClientRect().right + 10, posAtual - velocidadeMovimento);
+    elementos.foguete.style.left = novaPosicao + "px";
+  } 
+  else if (tecla === 'd') { // Move para direita
+    const novaPosicao = Math.min(window.innerWidth - larguraFoguete - 10, posAtual + velocidadeMovimento);
+    elementos.foguete.style.left = novaPosicao + "px";
+  }
+  else if (tecla === 'w') {
+    // Dispara um único míssil
+    if (!misseis.esquerdo.ativo && !misseis.direito.ativo) {
+        dispararMissil(elementos.missilEsquerdo, "esquerdo"); // Dispara o esquerdo por padrão
+    } else if (!misseis.direito.ativo) {
+        dispararMissil(elementos.missilDireito, "direito"); // Dispara o direito caso o esquerdo já tenha sido disparado
+    }
+}
+
+  
+  atualizarPosicaoMisseis();
+});
+
+      
+      
+
+    function pausarJogo() {
+  if (estadoJogo.pausado || !estadoJogo.ativo) return; // Evita pausar se já estiver pausado
+  
+  estadoJogo.pausado = true;
+  elementos.telaPausa.style.display = "flex";
+  
+  // Pausa o temporizador
+  clearInterval(tempo.intervalo);
+  
+  // Pausa todos os aliens (remove seus intervalos)
+  for (let id in aliens.intervalos) {
+    if (aliens.intervalos[id]) {
+      clearInterval(aliens.intervalos[id]);
+      aliens.intervalos[id] = null; // Marca como pausado
+    }
+  }
+  
+  // Pausa os mísseis (remove seus intervalos)
+  if (misseis.esquerdo.animacao) {
+    clearInterval(misseis.esquerdo.animacao);
+    misseis.esquerdo.animacao = null;
+  }
+  if (misseis.direito.animacao) {
+    clearInterval(misseis.direito.animacao);
+    misseis.direito.animacao = null;
+  }
+}
+function continuarJogo() {
+  if (!estadoJogo.pausado || !estadoJogo.ativo) return;
+  
+  estadoJogo.pausado = false;
+  elementos.telaPausa.style.display = "none";
+  
+  // Não chama iniciarContador() novamente, apenas continua o jogo
+  tempo.intervalo = setInterval(atualizarRelogio, 1000);
+  
+  // Não reinicia os aliens, apenas verifica se eles estão visíveis e se o movimento está ativo
+  if (elementos.alienEsquerdo.style.display !== 'none' && !aliens.intervalos['alienEsquerdo']) {
+    moverAlien(elementos.alienEsquerdo);
+  }
+  if (elementos.alienMeio.style.display !== 'none' && !aliens.intervalos['alienMeio']) {
+    moverAlien(elementos.alienMeio);
+  }
+  if (elementos.alienDireito.style.display !== 'none' && !aliens.intervalos['alienDireito']) {
+    moverAlien(elementos.alienDireito);
+  }
+  
+  // Verifica se os mísseis estão ativos e não possuem animação, antes de disparar
+  if (misseis.esquerdo.ativo && !misseis.esquerdo.animacao) {
+    dispararMissil(elementos.missilEsquerdo, "esquerdo");
+  }
+  if (misseis.direito.ativo && !misseis.direito.animacao) {
+    dispararMissil(elementos.missilDireito, "direito");
+  }
+}
+
 
     function atualizarPosicaoMisseis() {
-      let posFoguete = parseInt(foguete.style.left) || 0;
-      missil1.style.left = (posFoguete + 10) + "px";
-      missil2.style.left = (posFoguete + 70) + "px";
+      const fogueteRect = elementos.foguete.getBoundingClientRect();
+      const posFoguete = fogueteRect.left;
+      const larguraFoguete = fogueteRect.width;
+      
+      // Posiciona os mísseis alinhados com o foguete
+      elementos.missilEsquerdo.style.left = (posFoguete + 10) + "px";
+      elementos.missilDireito.style.left = (posFoguete + larguraFoguete - 30) + "px";
+      
+      // Garante que os mísseis ficam atrás do foguete visualmente
+      elementos.missilEsquerdo.style.bottom = "120px";
+      elementos.missilDireito.style.bottom = "120px";
     }
 
-    let emVoo = [false, false];
-    let chegouTopo = [false, false];
-    let clickTimer = null;
+    function dispararMissil(missil, lado) {
+      if (misseis[lado].ativo || estadoJogo.pausado || !estadoJogo.ativo) return;
+      
+      // Efeito visual
+      missil.style.transform = "scale(1.2)";
+      setTimeout(() => { missil.style.transform = "scale(1)"; }, 100);
 
-    function lancarMissil(missil, index) {
-      if (emVoo[index] || pausado) return;
-      emVoo[index] = true;
-      chegouTopo[index] = false;
+      // Configura estado do míssil
+      misseis[lado].ativo = true;
+      misseis[lado].noTopo = false;
+      
+      let posicao = parseInt(missil.style.bottom) || 120;
+      const elementoMissil = missil;
+      
+      // Armazena a referência do intervalo no objeto misseis
+      misseis[lado].animacao = setInterval(() => {
+        if (estadoJogo.pausado || !estadoJogo.ativo) {
+          clearInterval(misseis[lado].animacao);
+          misseis[lado].animacao = null;
+          misseis[lado].ativo = false;
+          return;
+        }
 
-      let pos = parseInt(missil.style.bottom) || 120;
-      let animacao = setInterval(function () {
-        if (pausado) return; // impede animação durante pausa
+        // Verifica colisão
+        if (verificarColisaoMissil(elementoMissil)) {
+          clearInterval(misseis[lado].animacao);
+          misseis[lado].animacao = null;
+          misseis[lado].ativo = false;
+          reiniciarMissil(elementoMissil, lado);
+          return;
+        }
 
-        if (pos >= window.innerHeight - 40) {
-          clearInterval(animacao);
-          chegouTopo[index] = true;
-
-          if (chegouTopo[0] && chegouTopo[1]) {
-            setTimeout(() => {
-              missil1.style.bottom = "120px";
-              missil2.style.bottom = "120px";
-              emVoo[0] = false;
-              emVoo[1] = false;
-              chegouTopo[0] = false;
-              chegouTopo[1] = false;
-              atualizarPosicaoMisseis();
-            }, 100);
-          }
+        // Verifica se chegou ao topo
+        if (posicao >= window.innerHeight - 40) {
+          clearInterval(misseis[lado].animacao);
+          misseis[lado].animacao = null;
+          misseis[lado].ativo = false;
+          reiniciarMissil(elementoMissil, lado);
         } else {
-          pos += 10;
-          missil.style.bottom = pos + "px";
+          posicao += 10;
+          elementoMissil.style.bottom = posicao + "px";
         }
       }, 20);
     }
 
-    foguete.addEventListener("click", function () {
-      if (clickTimer || pausado) return;
-      clickTimer = setTimeout(() => {
-        if (!emVoo[0]) {
-          lancarMissil(missil1, 0);
-        } else if (!emVoo[1]) {
-          lancarMissil(missil2, 1);
-        }
-        clickTimer = null;
-      }, 100);
-    });
-
-    foguete.addEventListener("dblclick", function () {
-      if (pausado) return;
-      clearTimeout(clickTimer);
-      clickTimer = null;
-      if (!emVoo[0] && !emVoo[1]) {
-        lancarMissil(missil1, 0);
-        lancarMissil(missil2, 1);
+    function reiniciarMissil(missil, lado) {
+      // Para qualquer animação em andamento
+      if (misseis[lado].animacao) {
+        clearInterval(misseis[lado].animacao);
+        misseis[lado].animacao = null;
       }
-    });
-
-    window.onload = function () {
+      
+      // Reseta estado e posição
+      misseis[lado].ativo = false;
+      misseis[lado].noTopo = false;
+      missil.style.bottom = "120px";
+      missil.style.transform = "scale(1)";
+      
+      // Atualiza posição relativa ao foguete
       atualizarPosicaoMisseis();
-      startContador();
-    };
-  </script>
+    }
 
+    function iniciarAliens() {
+      // Mostrar aliens
+      elementos.alienEsquerdo.style.display = "block";
+      elementos.alienMeio.style.display = "block";
+      elementos.alienDireito.style.display = "block";
+
+      // Posicionar aliens no topo (fora da tela)
+      elementos.alienEsquerdo.style.top = "-100px";
+      elementos.alienMeio.style.top = "-100px";
+      elementos.alienDireito.style.top = "-100px";
+
+      // Iniciar movimento
+      moverAlien(elementos.alienEsquerdo);
+      moverAlien(elementos.alienMeio);
+      moverAlien(elementos.alienDireito);
+    }
+
+    function moverAlien(alien) {
+  if (aliens.intervalos[alien.id]) {
+    clearInterval(aliens.intervalos[alien.id]);
+  }
+  
+  const posicaoInicial = -100;
+  let posicaoAtual = posicaoInicial;
+  
+  alien.style.top = posicaoInicial + "px";
+  
+  aliens.intervalos[alien.id] = setInterval(() => {
+    if (estadoJogo.pausado || !estadoJogo.ativo) return;
+    
+    posicaoAtual += estadoJogo.velocidadeAliens;
+    alien.style.top = posicaoAtual + "px";
+    
+    // Verificar colisão com foguete
+    const posFoguete = elementos.foguete.getBoundingClientRect();
+    const posAlien = alien.getBoundingClientRect();
+    
+    if (posAlien.bottom >= posFoguete.top && 
+        posAlien.right >= posFoguete.left && 
+        posAlien.left <= posFoguete.right) {
+      alienAtingiuFoguete(alien);
+    }
+    
+    // Verificar se saiu da tela
+    if (posicaoAtual > window.innerHeight) {
+      posicaoAtual = posicaoInicial;
+      alien.style.top = posicaoInicial + "px";
+      alien.style.left = (Math.random() * (window.innerWidth - 100) + 50) + "px";
+    }
+  }, 20);
+}
+
+
+    function alienAtingiuFoguete(alien) {
+  if (!estadoJogo.ativo) return;
+
+  estadoJogo.ativo = false;
+  placar.vidas--;
+  elementos.vidas.textContent = "Vida: " + placar.vidas;
+
+  // Parar todos os aliens
+  for (let id in aliens.intervalos) {
+    clearInterval(aliens.intervalos[id]);
+    aliens.intervalos[id] = null;
+  }
+
+  if (placar.vidas <= 0) {
+    exibirMensagemTemporaria("GAME OVER", 2000);
+  } else {
+    exibirMensagemTemporaria("YOU LOSE", 2000);
+  }
+}
+
+
+
+    function reiniciarAliens() {
+      // Resetar posição vertical (acima da tela)
+      elementos.alienEsquerdo.style.top = "-100px";
+      elementos.alienMeio.style.top = "-100px";
+      elementos.alienDireito.style.top = "-100px";
+      
+      // Resetar posições horizontais
+      elementos.alienEsquerdo.style.left = "60%";
+      elementos.alienMeio.style.left = "45%";
+      elementos.alienDireito.style.left = "30%";
+      
+      // Reiniciar movimento
+      moverAlien(elementos.alienEsquerdo);
+      moverAlien(elementos.alienMeio);
+      moverAlien(elementos.alienDireito);
+      
+      // Resetar mísseis
+      reiniciarMissil(elementos.missilEsquerdo, "esquerdo");
+      reiniciarMissil(elementos.missilDireito, "direito");
+    }
+
+    function verificarColisaoMissil(missil) {
+  const aliensAtivos = [elementos.alienEsquerdo, elementos.alienMeio, elementos.alienDireito];
+  
+  for (let alien of aliensAtivos) {
+    if (alien.style.display === "none") continue;
+
+    const missilRect = missil.getBoundingClientRect();
+    const alienRect = alien.getBoundingClientRect();
+
+    const colidiu = !(missilRect.right < alienRect.left || 
+                      missilRect.left > alienRect.right || 
+                      missilRect.bottom < alienRect.top || 
+                      missilRect.top > alienRect.bottom);
+    if (colidiu) {
+      alien.style.display = "none";
+      placar.aliensAbatidos++;
+      elementos.aliensAbatidos.textContent = "Alien: " + placar.aliensAbatidos;
+      verificarPassagemFase();
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+    function verificarFaseCompleta() {
+      const aliensVisiveis = [elementos.alienEsquerdo, elementos.alienMeio, elementos.alienDireito]
+        .filter(alien => alien.style.display !== "none").length;
+      
+      if (aliensVisiveis === 0) {
+        estadoJogo.faseAtual++;
+        
+        if (estadoJogo.faseAtual > 4) {
+          mostrarMensagem("YOU WIN", 0);
+        } else {
+          // Atualizar fase
+          estadoJogo.velocidadeAliens += 0.5;
+          
+          // Mudar background
+          document.body.style.backgroundImage = `url(${aliens.imagens[estadoJogo.faseAtual-1]})`;
+          
+          // Reiniciar aliens
+          setTimeout(() => {
+            elementos.alienEsquerdo.style.display = "block";
+            elementos.alienMeio.style.display = "block";
+            elementos.alienDireito.style.display = "block";
+            reiniciarAliens();
+          }, 1000);
+        }
+      }
+    }
+
+    function mostrarMensagem(mensagem, tempo) {
+      elementos.textoMensagem.textContent = mensagem;
+      elementos.telaMensagem.style.display = "flex";
+      
+      if (tempo > 0) {
+        setTimeout(() => {
+          elementos.telaMensagem.style.display = "none";
+        }, tempo);
+      }
+    }
+
+    function proximaFase() {
+  estadoJogo.faseAtual++;
+
+  if (estadoJogo.faseAtual > 4) {
+    estadoJogo.ativo = false;
+    estadoJogo.pausado = true;
+    elementos.textoMensagem.textContent = "YOU WIN";
+    elementos.telaMensagem.style.display = "flex";
+    clearInterval(tempo.intervalo);
+    return;
+  }
+
+  estadoJogo.velocidadeAliens += 0.5;
+
+  document.body.style.backgroundImage = `url('${aliens.imagens[estadoJogo.faseAtual - 1]}')`;
+
+  // Reaparecer aliens
+  elementos.alienEsquerdo.style.display = "block";
+  elementos.alienMeio.style.display = "block";
+  elementos.alienDireito.style.display = "block";
+
+  reiniciarAliens();
+}
+
+function exibirMensagemTemporaria(texto, tempo = 2000) {
+  elementos.textoMensagem.textContent = texto;
+  elementos.telaMensagem.style.display = "flex";
+  clearInterval(tempo.intervalo); // pausa o tempo
+
+  setTimeout(() => {
+    elementos.telaMensagem.style.display = "none";
+    if (texto === "YOU WIN" || texto === "GAME OVER") return;
+
+    // Reinicia aliens se ainda houver vidas
+    if (placar.vidas > 0) {
+      estadoJogo.ativo = true;
+      iniciarAliens();
+      iniciarContador();
+    }
+  }, tempo);
+}
+
+function verificarPassagemFase() {
+  const aliensVisiveis = [elementos.alienEsquerdo, elementos.alienMeio, elementos.alienDireito]
+    .filter(alien => alien.style.display !== "none").length;
+
+  if (aliensVisiveis === 0) {
+    estadoJogo.faseAtual++;
+
+    if (estadoJogo.faseAtual > aliens.imagens.length) {
+      exibirMensagemTemporaria("YOU WIN", 3000);
+      estadoJogo.ativo = false;
+      clearInterval(tempo.intervalo);
+    } else {
+      // Atualizar velocidade e fundo
+      estadoJogo.velocidadeAliens += 0.5;
+      document.body.style.backgroundImage = `url(${aliens.imagens[estadoJogo.faseAtual - 1]})`;
+
+     
+      // Reiniciar aliens após pequeno intervalo
+      setTimeout(() => {
+        elementos.alienEsquerdo.style.display = "block";
+        elementos.alienMeio.style.display = "block";
+        elementos.alienDireito.style.display = "block";
+        reiniciarAliens();
+        estadoJogo.ativo = true;
+      }, 1500);
+    }
+  }
+}
+
+
+
+
+    // Inicialização
+    window.onload = iniciarJogo;
+  </script>
 </body>
 </html>
