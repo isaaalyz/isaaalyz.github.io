@@ -1,45 +1,19 @@
 function addRegional() {
     alert("Região Cadastrada com Sucesso!");
-    
-    // Obtém referência do formulário
     const form = document.querySelector('#formRegional');
-    
-    // Obtém os valores dos campos de entrada
-    const input_sigla = form.querySelector('input[name="sigla"]');
-    const input_cidade = form.querySelector('input[name="cidade"]');
+    const sigla = form.querySelector('input[name="sigla"]').value;
+    const cidade = form.querySelector('input[name="cidade"]').value;
 
-    // TABELA
-    const table = document.querySelector('#table_regional');
-    const line = document.createElement('tr');
-    
-    // Coluna ID
-    const col_id = document.createElement('td');
-    col_id.textContent = table.rows.length;
-    
-    // Coluna Sigla
-    const col_sigla = document.createElement('td');
-    col_sigla.textContent = input_sigla.value;
-    
-    // Coluna Cidade
-    const col_cidade = document.createElement('td');
-    col_cidade.textContent = input_cidade.value;
-    
-    // Monta a linha
-    line.appendChild(col_id);
-    line.appendChild(col_sigla);
-    line.appendChild(col_cidade);
-    table.appendChild(line);
+    regionals.push({ sigla, cidade });
 
-    // SELECT (para o formulário de Agentes)
+    const table = document.querySelector('#table_regional tbody');
+    const row = table.insertRow();
+    row.innerHTML = `<td>${regionals.length}</td><td>${sigla}</td><td>${cidade}</td>`;
+
     const select = document.querySelector('#select_regional');
-    const op = document.createElement("option");
-    
-    // Você pode escolher mostrar sigla ou cidade no select
-    op.textContent = `${input_sigla.value} - ${input_cidade.value}`;
-    op.value = input_sigla.value; // Ou pode usar o ID se preferir
-    
-    select.appendChild(op);
-    
-    // RESET CAMPOS
+    const option = new Option(`${sigla} - ${cidade}`, sigla);
+    select.appendChild(option);
+
+    drawChart();
     form.reset();
 }
