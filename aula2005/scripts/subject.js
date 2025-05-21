@@ -1,6 +1,6 @@
 function addSubject() {
 
-     alert("lalalalala")
+     alert("Assunto Cadastrado com Sucesso");
     const form = document.querySelector('#formSubject')
     const input_descricao = form.querySelector('input[name="descricao"]')
 
@@ -10,7 +10,7 @@ function addSubject() {
     
     
     const col_id = document.createElement('td')
-    col_id.textContent = table.rows.length + 1
+    col_id.textContent = table.rows.length;
     
     const col_nome = document.createElement('td')
     col_nome.textContent = input_descricao.value

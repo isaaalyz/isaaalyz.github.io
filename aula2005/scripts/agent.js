@@ -1,4 +1,5 @@
 function addAgent() {
+    alert("Agente Cadastrado com Sucesso");
     // Obtém referência do formulário
     const form = document.querySelector('#formAgent');
     // Obtém o valor dos campos de entrada
@@ -16,7 +17,7 @@ function addAgent() {
     const col_regional = document.createElement('td'); // Corrigi o nome da variável
     
     // Preenche os valores
-    col_id.textContent = table.rows.length + 1; // ID sequencial
+    col_id.textContent = table.rows.length; // ID sequencial
     col_nome.textContent = input_nome.value;
     col_regional.textContent = input_regional.options[input_regional.selectedIndex].text;
     
