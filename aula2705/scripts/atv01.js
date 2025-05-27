@@ -4,7 +4,7 @@ function ex01() {
     alert(input)
 
     let valores = [];
-    let numero = ' ';
+    let numero = '';
 
     for (let i = 0; i < input.length; i++) {
         let caractere = input[i];
