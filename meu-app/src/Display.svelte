@@ -6,14 +6,21 @@
   
   <style>
     input {
-	  font-size: 2rem;
-	  width: 250px;
-	  margin-bottom: 10px;
+	  font-size: 40px;
+	  width: 835px;
+	  margin-bottom: 50px;
 	  text-align: right;
+	  color: rgb(255, 161, 239);
 	  padding: 5px;
-	  border: 2px solid rgb(255, 161, 239);
-
+	  margin-top: 40px;
+	  border-radius: 10px;
+	  border: 5px solid rgb(255, 161, 239);
 	}
+
+	input:focus {
+  	outline: none;
+	}
+
   </style>
   
   

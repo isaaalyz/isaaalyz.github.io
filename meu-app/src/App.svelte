@@ -5,7 +5,7 @@
 	let valorVisor = "0";
   
 	function adicionarNoVisor(tecla) {
-	  if (valorVisor === "0" && tecla !== ".") {
+	  if (valorVisor == "0" && tecla != ".") {
 		valorVisor = tecla;
 	  } else {
 		valorVisor += tecla;
@@ -46,6 +46,7 @@
 
 	h2{
 		color: white;
+		font-size: 40px;
 	}
   
   </style>
