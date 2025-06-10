@@ -4,10 +4,6 @@
     export let func
 
 </script>
-
-
-
-
 <main>
     <div  class="container">
         <div class="top-line">
