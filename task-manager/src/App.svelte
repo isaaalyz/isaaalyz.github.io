@@ -3,13 +3,15 @@
 	import Tabela from './components/Table.svelte'
     import Dialogo from './components/Dialog.svelte'
     import { fade } from 'svelte/transition'
+    
 
-    let invisible= true
+    let invisible = false 
     let tarefa, descricao, prazo, prioridade
+    let tarefaSelecionada = null;
 
 	let data = [
 		{id: 1, tarefa: "Fazer compras", descricao: "Comprar frutas, legumes e pão", prioridade: "Média", prazo: "12/06/2025", status: false },
-		{id: 2, tarefa: "Estudar JavaScript", descricao: "Revisar conceitos de Promises e Async/Await", prioridade: "Alta", prazo: "10/06/2025", status: true },
+		{id: 2, tarefa: "Estudar JavaScript", descricao: "Revisar conceitos de Promises e Async/Await", prioridade: "Alta", prazo: "10/06/2025", status: false },
 		{id: 3, tarefa: "Pagar contas", descricao: "Pagar conta de luz e internet", prioridade: "Alta", prazo: "14/06/2025", status: false }
 	]
 
@@ -27,15 +29,20 @@
             prioridade: prioridade,
             prazo: prazo,
             status: false
-
         }
 
         aux.push(topico)        
         data = aux
+
+        tarefa = "";
+        descricao = "";
+        prazo = "";
+        prioridade = "";
     }
 
     function close() {
-        invisible= false
+    invisible = false; 
+    tarefaSelecionada = null;
     }
 
     function remove(index){
@@ -44,7 +51,40 @@
 
     }
 
-    
+   function showDialog(task) {
+    tarefaSelecionada = {
+        id: task.id,
+        tarefa: task.tarefa,
+        descricao: task.descricao,
+        prioridade: task.prioridade,
+        prazo: task.prazo,
+        situacao: task.status ? "Concluída" : "Pendente"
+    };
+    invisible = true; 
+}
+
+function check(index) {
+    data[index].status = !data[index].status;
+    data = [...data]; 
+}
+
+function atualizarStatusPorData() {
+    const hoje = new Date();
+
+    data = data.map(task => {
+        const partes = task.prazo.split("/"); 
+        const dataPrazo = new Date(`${partes[2]}-${partes[1]}-${partes[0]}`);
+
+        if (dataPrazo < hoje && !task.status) {
+            return { ...task, status: true }; 
+        }
+
+        return task;
+    });
+}
+
+
+
 
 </script>
 
@@ -74,7 +114,7 @@
         <div class="grid-conf">
             <div>
                 <label for="descricao">Descrição</label>
-                <textarea name="descricao">bind:value={descricao}</textarea>
+               <textarea name="descricao"bind:value={descricao}></textarea>
             </div>
             <div class="div-btn">
                 <button on:click={() => add()}>
@@ -88,30 +128,33 @@
     </div>
 	
     
-	<Tabela tasks={data}/>
+	<Tabela tasks={data} remove={remove}  info={showDialog} check={check}/>
 
 
     {#if invisible}
-        <div transition:fade>
-            <Dialogo func={close}/>
-        </div>
-    {/if}   
+    <div transition:fade>
+        <Dialogo func={close} dados={tarefaSelecionada}/>
+    </div>
+{/if}  
     
 
 </main>
 
 <style>
+
 	main {
 		text-align: center;
+        color: rgb(255, 0, 179);
 		padding: 1em;
+        background-color: pink;
 	}
 
 	h1 {
 		margin: 0px;
 		margin-bottom: 15px;
         font-size: 38px;
-        color: whitesmoke;
-        text-shadow: 2px 2px 4px #000000;
+        color: rgb(255, 0, 179);
+        text-shadow: 2px 2px 4px white;
     }
 
 	.grid-auto {
@@ -132,8 +175,8 @@
         width: 100%;
         text-align: left;
         border-collapse: collapse;
-        border: 2px solid lightgray;
-        box-shadow: 3px 3px 3px 2px darkgray;
+        border: 2px solid pink;
+        box-shadow: 3px 3px 3px 2px white;
         box-sizing: border-box;
         padding: 10px;
     }
@@ -146,7 +189,7 @@
     
     input {
         width: 100%;
-        border: 1px solid darkgrey;
+        border: 1px solid rgb(255, 0, 179);
         border-radius: 6px;
         padding: 5px 10px;
         text-decoration: none;
@@ -159,9 +202,9 @@
     }
 
     select {
-        background-color: #EEE;
+        background-color: white;
         width: 100%;
-        border: 1px solid grey
+        border: 1px solid rgb(255, 0, 179);
     }
 
     button {
