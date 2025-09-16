@@ -1,0 +1,177 @@
+import type { HttpContext } from '@adonisjs/core/http'
+import User from '#models/user'
+import { loginValidator, registerValidator } from '#validators/auth'
+export default class AuthController {
+/**
+* Registrar um novo usuário
+*/
+async register({ request, response }: HttpContext) {
+try {
+const payload = await request.validateUsing(registerValidator)
+const user = await User.create(payload)
+// Criar token de acesso para o usuário recém-registrado
+const token = await User.accessTokens.create(user, ['*'], {
+name: 'Registration Token',
+expiresIn: '30 days',
+// user: usuário logado;
+// *: coringa, token pode acessar todas as rotas protegidas;
+// Exemplos: ['read:profile', 'write:posts'];
+// expiresIn: define a validade do Token;
+})
+return response.created({
+message: 'Usuário registrado com sucesso',
+user: {
+id: user.id,
+fullName: user.fullName,
+email: user.email,
+createdAt: user.createdAt,
+},
+token: {
+type: 'bearer',
+value: token.value!.release(),
+expiresAt: token.expiresAt,
+},
+// bearer: padrão (OAuth 2.0) tipo de token que cliente
+// deve incluir no cabeçalho Authorization das requisições;
+// value: acessa o valor do token gerado e salvo no banco.
+// O release retorna a string limpa e utilizável que deve;
+// ser enviada ao cliente (token, geralmente, é uma string criptografada);
+// expiresAt: Adiciona a data e hora da expiração do token;
+})
+} catch (error) {
+return response.badRequest({
+message: 'Erro ao registrar usuário',
+errors: error.messages || error.message,
+})
+}
+}
+/**
+* Fazer login do usuário
+*/
+async login({ request, response }: HttpContext) {
+try {
+const { email, password } = await request
+.validateUsing(loginValidator)
+// Encapsula a lógica de verificação da senha. Verifica se o
+// e-mail e senha fornecidos existem na tabela "users". Retorna
+// objeto User se encontrado, ou uma exceção, caso contrário;
+const user = await User.verifyCredentials(email, password)
+// Criar token de acesso
+const token = await User.accessTokens.create(user, ['*'], {
+name: 'Login Token',
+expiresIn: '30 days',
+})
+return response.ok({
+message: 'Login realizado com sucesso',
+user: {
+id: user.id,
+fullName: user.fullName,
+email: user.email,
+},
+token: {
+type: 'bearer',
+value: token.value!.release(),
+expiresAt: token.expiresAt,
+}
+})
+} catch (error) {
+return response.unauthorized({
+message: 'Credenciais inválidas',
+})
+}
+}
+/**
+* Fazer logout do usuário (invalidar token atual)
+*/
+async logout({ auth, response }: HttpContext) {
+try {
+const user = auth.getUserOrFail()
+const token = auth.user?.currentAccessToken
+if (token) {
+await User.accessTokens.delete(user, token.identifier)
+}
+return response.ok({
+message: 'Logout realizado com sucesso',
+})
+} catch (error) {
+return response.unauthorized({
+message: 'Token inválido',
+})
+}
+}
+/**
+* Obter informações do usuário autenticado
+*/
+async me({ auth, response }: HttpContext) {
+try {
+const user = auth.getUserOrFail()
+return response.ok({
+user: {
+id: user.id,
+fullName: user.fullName,
+email: user.email,
+createdAt: user.createdAt,
+updatedAt: user.updatedAt,
+},
+})
+} catch (error) {
+return response.unauthorized({
+message: 'Token inválido',
+})
+}
+}
+/**
+* Listar todos os tokens do usuário autenticado
+*/
+async tokens({ auth, response }: HttpContext) {
+try {
+const user = auth.getUserOrFail()
+const tokens = await User.accessTokens.all(user)
+return response.ok({
+tokens: tokens.map(token => ({
+name: token.name,
+type: token.type,
+abilities: token.abilities,
+lastUsedAt: token.lastUsedAt,
+expiresAt: token.expiresAt,
+createdAt: token.createdAt,
+}))
+})
+} catch (error) {
+return response.unauthorized({
+message: 'Token inválido',
+})
+}
+}
+/**
+* Criar um novo token para o usuário autenticado
+*/
+async createToken({ auth, request, response }: HttpContext) {
+try {
+const user = auth.getUserOrFail()
+const { name, abilities, expiresIn } = request
+.only(['name', 'abilities', 'expiresIn'])
+const token = await User.accessTokens.create(user, abilities || ['*'], {
+name: name || 'API Token',
+
+expiresIn: expiresIn || '30 days',
+})
+return response.created({
+message: 'Token criado com sucesso',
+token: {
+type: 'bearer',
+value: token.value!.release(),
+name: token.name,
+abilities: token.abilities,
+expiresAt: token.expiresAt,
+},
+})
+} catch (error) {
+return response.badRequest({
+message: 'Erro ao criar token',
+error: error.message,
+})
+}
+}
+}
+
